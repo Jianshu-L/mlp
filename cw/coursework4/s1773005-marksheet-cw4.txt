@@ -1,0 +1,40 @@
+Marker: pavlos
+
+Submitting student: s1773005
+
+Group: G77
+Students: s1773005  s1607197  
+
+
+
+MLP Coursework 4
+April 2018
+
+TOTAL MARK:   65/100
+
+COMMENTS:
+
+
+Abstract
+Good.
+
+
+Introduction & Objectives 
+There is no real motivation given.Instead you go straight into describing the dataset.
+Objectives are clearly given.
+(Define acronyms in the main text rather than the abstract, where you are better of using whole words, unless there is a repetition).
+
+
+
+Methodology & Experiments 
+Better to explain the methodology in terms of models, architectures and algorithms rather than as tensorflow methods.
+Explain the data and task in more detail. "Segment feature"?
+The convolutional networks need more explanation - what is the input data representation?  does it make sense to define convolutions over this representation?  what structure can be learned?
+There is little discussion of the results, which makes the sequence of graphs harder to interpret.
+Figures could be larger.
+
+Related work 
+Good in that it focuses on the task, but it should extend beyond the boundaries of the current dataset.
+
+Conclusions 
+Fair, but I would have wanted more insight.

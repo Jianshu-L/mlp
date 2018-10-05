@@ -1,0 +1,42 @@
+Group: G77
+Students: s1773005 s1607197 
+
+submitting student: s1773005
+
+MLP Coursework 3
+February 2018
+
+TOTAL MARK:   65/100 
+
+COMMENTS:
+
+Abstract 
+Good.
+
+Introduction/Objectives 
+Some citations for section 1 (dataset).
+The Objectives only mentions creating a baseline, but does not explain what things have to be achieved for the project to be a success. They are implicit in section 1, however.
+The research question seems to be to produce a good model.
+
+
+Data set and task 
+The data parameters could use some explanation, and the stats for training/validationtest are not given.
+
+
+Methodology
+There is a choice here to describe things that are used in this Coursework, rather than analyse technologies that will be studied. In light of this, I will be moving points from here to the experiments.
+RNNs should have been described in this coursework however, since you need to draw conclusions about why they might perform better at the task.
+
+
+
+Experiments 
+There are detailed and well presented baseline experiments.
+
+
+
+Interim conclusions 
+The conclusions suffer from the lack of description of RNNs, and re as a result quite poor.
+
+
+Plan
+There is no description of a plan, other than that RNNs will be tried.
