@@ -1,0 +1,14 @@
+TEST RESULTS:
+BatchNorm fprop PASSED
+BatchNorm bprop PASSED
+BatchNorm grads_wrt_params PASSED
+BatchNorm mark 10
+
+
+TEST RESULTS:
+convLayer fprop PASSED
+convLayer bprop PASSED
+convLayer grads_wrt_params PASSED
+convLayer mark 20
+
+

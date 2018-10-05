@@ -1,0 +1,64 @@
+s1773005
+MLP Coursework 2
+November 2017
+TOTAL MARK: 30 + 45 = 75/100
+
+PART 1 MARK (unit tests)
+BatchNorm tests: 10/10
+Conv Layer tests: 20/20
+Total Part 1 = 30/30
+
+PART 2 MARK (report): 45/70
+
+COMMENTS:
+
+
+
+
+
+Abstract:
+The last and first sentence together form a statement about what the paper is about; this is too disconnected. The abstract reads as an incomplete outline. It should read more as a summary.
+There is no mention of your conclusions.
+
+
+Introduction:
+You could give more details on the EMNIST task.
+There is some motivation but no explicit outline.
+
+
+Methods:
+
+
+Experiments:
+To test a model, you need to take a model that has been stored from your previous experiments and do a forward propagation on the test data, to get the predictions you will compare with the labels from the test data. There is no additional learning involved, which is why Figure 10 is out of place.
+
+
+Interpretation and discussion of results:
+
+
+Conclusions:
+
+Presentation and clarity of report:
+
+
+Topics covered:
+ 
+ Baseline experiments:
+"less sensitive parameters"-> activation functions are not parameters. Explain "less sensitive".
+"Ensure the speed of the model"-> this is one side of the coin; the other is the quality of your results.
+Your figure is too small.
+How did you determine convergence? How did you perform early stopping?
+Overfitting would occur eventually, regardless of your choice of activation function (https://towardsdatascience.com/deep-learning-overfitting-846bf5b35e24).
+Testing only for activation functions and learning rate is not enough. I would have expected to see some experiments, for example, on regularisation or dropout.
+ 
+ Learning rules:
+You do not define all of your variables.
+What value did you give to the decay rate for RMSProp?
+Adam and RMSProp both require a smaller learning rate, as your results indicate; or something has gone wrong with the implementation.
+
+ Batch normalisation:
+
+ Convolutional networks:
+I wanted a few details on your implementation.
+Results are not well presented.
+
