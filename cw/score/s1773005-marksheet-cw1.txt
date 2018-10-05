@@ -1,0 +1,45 @@
+s1773005
+MLP Coursework 1
+October 2017
+
+TOTAL MARK: 30 + 35  =  65/100
+
+
+TEST RESULTS:
+LeakyReLU fprop: Passed
+LeakyReLU bprop: Passed
+ELU fprop: Passed
+ELU bprop: Passed
+SELU fprop: Passed
+SELU bprop: Passed
+PART 1 MARK: 30/30 (6 tests passed)
+
+
+PART 2 MARK:  35/70
+
+COMMENTS:
+You have no references.. 
+
+Abstract: 
+No abstract. -5 points. 
+
+Introduction: 
+Try to give more motivation and introduction to your research question. 
+Introduction is not the place for technical details.
+
+Description of activation functions: 
+Good, but next time use the references for the papers introducing the activation functions. 
+
+Activation function experiments:  
+What learining rate did you use?
+How did you measure the runtime? 
+
+You seem to be reporting results based on a single opitmization run. Do you think these results are reliable? 
+
+Deep neural network experiments:  
+
+Again, you use a single optimization run. Could these results be due to chance? 
+
+Conclusions: 
+You report results, but don't try to explain them. 
+
