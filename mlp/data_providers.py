@@ -70,8 +70,8 @@ class DataProvider(object):
             self.shuffle()
 
     def shuffle(self):
-        """Randomly shuffles order of data."""
-        new_order = self.rng.permutation(self.inputs.shape[0])
+        """Randomly shuffles洗牌 order of data."""
+        new_order = self.rng.permutation(self.inputs.shape[0]) #随机重排(self.inputs.shape[0])
         self.inputs = self.inputs[new_order]
         self.targets = self.targets[new_order]
 
