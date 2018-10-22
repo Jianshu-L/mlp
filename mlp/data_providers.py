@@ -33,6 +33,7 @@ class DataProvider(object):
                 the data before each epoch.
             rng (RandomState): A seeded random number generator.
         """
+        # 初始化inputs，targets，batch_size，max_num_batches
         self.inputs = inputs
         self.targets = targets
         self.batch_size = batch_size
@@ -71,11 +72,11 @@ class DataProvider(object):
 
     def shuffle(self):
         """Randomly shuffles洗牌 order of data."""
-        new_order = self.rng.permutation(self.inputs.shape[0]) #随机重排(self.inputs.shape[0])
+        new_order = self.rng.permutation(self.inputs.shape[0]) # 随机重排(self.inputs.shape[0])
         self.inputs = self.inputs[new_order]
         self.targets = self.targets[new_order]
 
-    def next(self):
+    def __next__(self):
         """Returns next data batch or raises `StopIteration` if at end."""
         if self._curr_batch + 1 > self.num_batches:
             # no more batches in current iteration through data set so reset
@@ -83,9 +84,10 @@ class DataProvider(object):
             self.reset()
             raise StopIteration()
         # create an index slice corresponding to current batch number
+        # slice(start -- 起始位置, stop -- 结束位置, step -- 间距)
         batch_slice = slice(self._curr_batch * self.batch_size,
                             (self._curr_batch + 1) * self.batch_size)
-        inputs_batch = self.inputs[batch_slice]
+        inputs_batch = self.inputs[batch_slice] # (5,784)
         targets_batch = self.targets[batch_slice]
         self._curr_batch += 1
         return inputs_batch, targets_batch
@@ -133,13 +135,10 @@ class MNISTDataProvider(DataProvider):
         super(MNISTDataProvider, self).__init__(
             inputs, targets, batch_size, max_num_batches, shuffle_order, rng)
 
-    # def next(self):
-    #    """Returns next data batch or raises `StopIteration` if at end."""
-    #    inputs_batch, targets_batch = super(MNISTDataProvider, self).next()
-    #    return inputs_batch, self.to_one_of_k(targets_batch)
-    #
-    def __next__(self):
-        return self.next()
+    def next_one(self):
+       """Returns next data batch or raises `StopIteration` if at end."""
+       inputs_batch, targets_batch = super(MNISTDataProvider, self).next_one()
+       return inputs_batch, self.to_one_of_k(targets_batch)
 
     def to_one_of_k(self, int_targets):
         """Converts integer coded class target to 1 of K coded targets.
@@ -156,8 +155,10 @@ class MNISTDataProvider(DataProvider):
             to zero except for the column corresponding to the correct class
             which is equal to one.
         """
-        raise NotImplementedError()
-
+        
+        int_targets = np.zeros(np.array([batch_size, num_classes]))
+        for i in range(batch_size):
+            int_targets[i,target_batches[i]] = 1
 
 class MetOfficeDataProvider(DataProvider):
     """South Scotland Met Office weather data provider."""
