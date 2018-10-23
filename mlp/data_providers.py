@@ -129,15 +129,15 @@ class MNISTDataProvider(DataProvider):
         )
         # load data from compressed numpy file
         loaded = np.load(data_path)
-        inputs, targets = loaded['inputs'], loaded['targets']
+        inputs, targets = loaded['inputs'], loaded['targets']  # (10000, 784), (10000, )
         inputs = inputs.astype(np.float32)
         # pass the loaded data to the parent class __init__
         super(MNISTDataProvider, self).__init__(
             inputs, targets, batch_size, max_num_batches, shuffle_order, rng)
 
-    def next_one(self):
+    def __next__(self):
        """Returns next data batch or raises `StopIteration` if at end."""
-       inputs_batch, targets_batch = super(MNISTDataProvider, self).next_one()
+       inputs_batch, targets_batch = super(MNISTDataProvider, self).__next__()
        return inputs_batch, self.to_one_of_k(targets_batch)
 
     def to_one_of_k(self, int_targets):
@@ -155,10 +155,9 @@ class MNISTDataProvider(DataProvider):
             to zero except for the column corresponding to the correct class
             which is equal to one.
         """
-        
-        int_targets = np.zeros(np.array([batch_size, num_classes]))
-        for i in range(batch_size):
-            int_targets[i,target_batches[i]] = 1
+        one_of_k_target = np.zeros(np.array([self.batch_size, self.num_classes]))
+        one_of_k_target[range(self.batch_size), int_targets] = 1
+        return one_of_k_target
 
 class MetOfficeDataProvider(DataProvider):
     """South Scotland Met Office weather data provider."""
@@ -189,19 +188,19 @@ class MetOfficeDataProvider(DataProvider):
             'Data file does not exist at expected path: ' + data_path
         )
         # load raw data from text file
-        # ...
+        raw = np.loadtxt(data_path, skiprows = 3, usecols = range(2,33)) # (30924, )
         # filter out all missing datapoints and flatten to a vector
-        # ...
+        loaded = raw[raw != -99.99].flatten()
         # normalise data to zero mean, unit standard deviation
-        # ...
+        loaded = (loaded - np.mean(loaded)) / np.std(loaded)
         # convert from flat sequence to windowed data
-        # ...
+        shape = (loaded.shape[-1] - window_size + 1, window_size)
+        strides = loaded.strides + (loaded.strides[-1],)
+        windowed_data = np.lib.stride_tricks.as_strided(loaded, shape=shape, strides=strides)
         # inputs are first (window_size - 1) entries in windows
-        # inputs = ...
+        inputs = windowed_data[:, 0:-1] # (30924 - window_size + 1, window_size - 1)
         # targets are last entry in windows
-        # targets = ...
+        targets = windowed_data[:, -1] # (30924 - window_size + 1, 1)
         # initialise base class with inputs and targets arrays
-        # super(MetOfficeDataProvider, self).__init__(
-        #     inputs, targets, batch_size, max_num_batches, shuffle_order, rng)
-    def __next__(self):
-            return self.next()
+        super(MetOfficeDataProvider, self).__init__(
+            inputs, targets, batch_size, max_num_batches, shuffle_order, rng)
