@@ -1,0 +1,87 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11940\viewh21000\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs40 \cf0 Errors: SumOfSquaredDiffsError\
+
+\fs34 \
+
+\fs28 __call__: Sum squared error: np.sum((outputs - targets) ** 2) / (2*outputs.shape[0])\
+grad(self, outputs, targets): gradient of error function with respect to outputs: \
+(outputs - targets) / outputs.shape[0]
+\fs32 \
+
+\fs28 __repr__
+\fs32 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs40 \cf0 Layers: AffineLayer\
+
+\fs34 \
+
+\fs28 __init__: \
+fprop(inputs): return outputs = np.dot(inputs,self.weights.T) + self.biases\
+
+\fs32 \
+
+\fs28 grads_wrt_params(self, inputs, grads_wrt_outputs):\
+return grads_wrt_weights = grads_wrt_outputs.T.dot(inputs)\
+           grads_wrt_biases = grads_wrt_outputs.sum(0)\
+\
+@property\
+params: return self.weights, self.biases\
+\
+__repr__: \
+
+\fs32 \
+\
+
+\fs40 Model: SingleLayerModel\
+
+\fs34 \
+
+\fs28 __init__(layer): self.layer = layer\
+\
+@property\
+params: self.layer.params\
+\
+fprop(inputs):\
+return activations = [inputs, self.layer.fprop(inputs)] # [x,y]\
+\
+grads_wrt_params(activations, grads_wrt_outputs):\
+return self.layer.grads_wrt_params(activations[0], grads_wrt_outputs)\
+\
+
+\fs40 Optimisers: Optimiser\
+
+\fs34 \
+
+\fs28 __init__(self, model, error, learning_rule, train_dataset, valid_dataset=none, data_monitors=none): \
+
+\f1 \'b0\'d1\'cb\'f9\'d3\'d0\'b2\'ce\'ca\'fd\'b4\'ab\'b8\'f8self\'a3\'ac\'cd\'ac\'ca\'b1\'d6\'b4\'d0\'d0\'a3\'ba\
+self.learning_rule.initialise(self.model.params)
+\f0 \
+self.data_monitors = OrderedDict([('error', error)])\
+if data_monitors is not None:\
+    self.data_monitors.update(data_monitors)\
+\
+do_training_epoch
+\f1 : #\'d1\'b5\'c1\'b7\'c4\'a3\'d0\'cd\'a3\'ac\'b8\'fc\'d0\'c2\'b2\'ce\'ca\'fd\
+activations = self.model.fprop(inputs_batch) #[x,y]. \
+grads_wrt_outputs = self.error.grad(activations[-1], targets_batch) #(y - y_hat) / y.shape[0]\
+grads_wrt_params = self.model.grads_wrt_params(activations, grads_wrt_outputs) #k,b\
+self.learning_rule.update_params(grads_wrt_params)\
+\
+eval_monitors: 
+\f0 \
+
+\fs32 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs34 \cf0 \
+\
+}

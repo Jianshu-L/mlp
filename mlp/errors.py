@@ -15,7 +15,7 @@ import numpy as np
 class SumOfSquaredDiffsError(object):
     """Sum of squared differences (squared Euclidean distance) error."""
 
-    def __call__(self, outputs, targets):
+    def __call__(self, outputs, targets):  # 这个class自己就可以是一个函数
         """Calculates error function given a batch of outputs and targets.
 
         Args:
@@ -40,5 +40,5 @@ class SumOfSquaredDiffsError(object):
         """
         return (outputs - targets) / outputs.shape[0]
 
-    def __repr__(self):
+    def __repr__(self):  # 打印函数的输出变得友好
         return 'SumOfSquaredDiffsError'
