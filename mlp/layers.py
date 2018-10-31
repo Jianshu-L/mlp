@@ -112,7 +112,7 @@ class AffineLayer(LayerWithParameters):
         """
         grads_wrt_weights = grads_wrt_outputs.T.dot(inputs)
         grads_wrt_biases = grads_wrt_outputs.sum(0) # .sum()就是把array中所有元素加起来。.sum(0)
-                                                    # Axis or axes along which a sum is performed. 
+                                                    # 把行的各个元素加起来，也就是对所有batch求和。
         return grads_wrt_weights, grads_wrt_biases
 
     @property
