@@ -233,7 +233,7 @@ class SoftmaxLayer(Layer):
             outputs: Array of layer outputs of shape (batch_size, output_dim).
         """
         exp_inputs = np.exp(inputs)
-        return exp_inputs / exp_inputs.sum(-1)[:, None]
+        return exp_inputs / exp_inputs.sum(-1)[:, None] # 把inputs的值根据input_dim求和，并且reshape成[batch_size,1]
 
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
@@ -253,7 +253,9 @@ class SoftmaxLayer(Layer):
             (batch_size, input_dim).
         """
         return (outputs * (grads_wrt_outputs -
-                           (grads_wrt_outputs * outputs).sum(-1)[:, None]))
+                           (grads_wrt_outputs * outputs).sum(-1)[:, None])) 
+        
+        # softmax在这里是一个激活函数，因此m始终等于k，不需要Kronecker delta 函数
 
     def __repr__(self):
         return 'SoftmaxLayer'
